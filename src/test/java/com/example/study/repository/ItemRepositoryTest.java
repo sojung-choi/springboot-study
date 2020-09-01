@@ -17,9 +17,9 @@ public class ItemRepositoryTest extends StudyApplicationTests {
     @Test
     public void create(){
         Item item = new Item();
-        item.setName("노트북");
-        item.setPrice(10000);
-        item.setContent("엘지노트북");
+        item.setName("아이템테스트");
+        item.setPrice(20000);
+        item.setContent("새로운 아이템");
 
         Item newItem = itemRepository.save(item);
         System.out.println("newItem : "+ newItem);
@@ -27,7 +27,7 @@ public class ItemRepositoryTest extends StudyApplicationTests {
     }
     @Test
     public void read(){
-        Long id = 1L;
+        Long id = 3L;
 
         Optional<Item> item = itemRepository.findById(id);
         item.ifPresent(i -> {
