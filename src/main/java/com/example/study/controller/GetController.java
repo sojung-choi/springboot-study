@@ -1,14 +1,13 @@
 package com.example.study.controller;
 
 import com.example.study.model.entity.User;
+import com.example.study.model.network.Header;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -19,7 +18,7 @@ public class GetController {
     public String getMethod() {
         return "Hi sojung";
     }
- */
+ * /
     @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(method = RequestMethod.GET, path="/getComment")
     public String getComment() {
@@ -31,5 +30,10 @@ public class GetController {
                 + "]";
 
         return temp;
+    }
+*/
+    @GetMapping("/header")
+    public Header getHeader() {
+        return Header.builder().resultCode("OK").description("OK").build();
     }
 }

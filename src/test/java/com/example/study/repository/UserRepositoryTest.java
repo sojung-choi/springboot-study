@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -17,16 +18,27 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create() {
-        User user = new User();
-        user.setAccount("TestUser06");
-        user.setEmail("TestUser06@gmail.com");
-        user.setPhoneNumber("010-6666-6666");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("TestUser06");
+        String account = "Test01";
+        String password = "Test01";
+        String status = "REGISTERED";
+        String email = "Test01@gmail.com";
+        String phoneNumber = "010-1111-2222";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
 
+        User user = new User();
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
 
         User newUser = userRepository.save(user);
-        System.out.println("newuser: " + newUser);
+
     }
 
     @Test
@@ -45,19 +57,8 @@ public class UserRepositoryTest extends StudyApplicationTests {
     @Test
     @Transactional
     public void read(){
-        //select * from user where id = ?
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
 
-        Optional<User> user = userRepository.findByAccount("updateee");
-
-        user.ifPresent(selectUser ->{
-            //System.out.println("user : " + selectUser);
-            //System.out.println("email : " + selectUser.getEmail());
-
-            selectUser.getOrderDetailList().stream().forEach(detail ->{
-                Item item = detail.getItem();
-                System.out.println(item);
-            });
-        });
     }
 
     @Test

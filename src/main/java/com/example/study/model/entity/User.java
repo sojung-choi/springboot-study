@@ -1,9 +1,10 @@
 package com.example.study.model.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
+@ToString(exclude = {"orderGroupList"})
+@EntityListeners(AuditingEntityListener.class)
+@Accessors(chain = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +25,22 @@ public class User {
 
     private String account;
 
+    private String password;
+
+    private String status;
+
     private String email;
+
+
 
     private String phoneNumber;
 
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime unregisteredAt;
+
+    @CreatedDate
+    //private String createdAt;
     private LocalDateTime createdAt;
 
     private String createdBy;
@@ -31,9 +48,5 @@ public class User {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
-
-    //1:N
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<OrderDetail> orderDetailList;
 
 }
